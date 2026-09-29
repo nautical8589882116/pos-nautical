@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How NHY Turns Table QR Ordering Into a Live Restaurant OS | Nautical POS</title>
+  <meta name="description" content="A practical demo story for cafe, QSR, bakery, food court and retail operators on connecting customer orders, menu edits, payments, kitchen tickets and sales signals with the NHY React Native app and Nautical POS." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.nautical.co.in/blog/nhy-qr-ordering-restaurant-os.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How NHY Turns Table QR Ordering Into a Live Restaurant OS | Nautical POS" />
+  <meta property="og:description" content="A practical demo story for cafe, QSR, bakery, food court and retail operators on connecting customer orders, menu edits, payments, kitchen tickets and sales signals." />
+  <meta property="og:url" content="https://www.nautical.co.in/blog/nhy-qr-ordering-restaurant-os.html" />
+  <meta property="og:site_name" content="Nautical POS" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How NHY Turns Table QR Ordering Into a Live Restaurant OS | Nautical POS" />
+  <meta name="twitter:description" content="A practical demo story for cafe, QSR, bakery, food court and retail operators on connecting customer orders, menu edits, payments, kitchen tickets and sales signals." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy:#0B2545; --deep-navy:#061A33; --teal:#17C3CE; --soft-teal:#E6FAFB; --ink:#1F2933; --slate:#5A6B7B; --sand:#F7F9FB; --amber:#F6A609; --paper:#FFFFFF; }
+    * { box-sizing:border-box; }
+    html, body { margin:0; padding:0; background:var(--paper); color:var(--ink); font-family:'Inter',-apple-system,'Segoe UI',sans-serif; font-size:18px; line-height:1.7; overflow-x:hidden; }
+    a { color:var(--teal); text-decoration:none; }
+    h1,h2,h3 { font-family:'Sora','Segoe UI',system-ui,sans-serif; font-weight:700; letter-spacing:-0.03em; color:var(--navy); line-height:1.2; }
+    .wrap { max-width:760px; margin:0 auto; padding:0 20px; }
+    .hero { background:var(--navy); color:#fff; padding:72px 20px 64px; }
+    .anchor { color:var(--teal); font-family:'Sora','Segoe UI',system-ui,sans-serif; font-weight:600; font-size:13px; letter-spacing:0.16em; text-transform:uppercase; margin-bottom:18px; }
+    .hero h1 { color:#fff; font-size:clamp(28px,6vw,44px); margin:0 0 16px; }
+    .hero .deck { color:var(--teal); font-size:18px; font-weight:500; margin:0; }
+    .section { padding:56px 0; }
+    .section.sand { background:var(--sand); }
+    h2 { font-size:clamp(22px,4vw,30px); margin:0 0 18px; }
+    h3 { font-size:clamp(18px,3vw,22px); margin:0 0 12px; }
+    p { margin:0 0 16px; }
+    .ops { display:grid; gap:14px; }
+    .op { background:#fff; border-radius:12px; padding:16px 18px; border:1px solid #d7e2ea; }
+    .op strong { display:block; font-family:'Sora','Segoe UI',system-ui,sans-serif; color:var(--navy); }
+    .steps { display:grid; gap:16px; }
+    .step { background:#fff; border-radius:12px; padding:18px; border:1px solid #d7e2ea; }
+    .step .num { font-family:'Sora','Segoe UI',system-ui,sans-serif; font-weight:700; color:var(--amber); font-size:20px; margin-bottom:8px; }
+    .cta { background:var(--deep-navy); padding:64px 20px; text-align:center; }
+    .cta h2 { color:#fff; }
+    .cta p { color:#c9d6e3; max-width:520px; margin:0 auto 28px; }
+    .btn { display:inline-block; background:var(--teal); color:var(--deep-navy); font-family:'Sora','Segoe UI',system-ui,sans-serif; font-weight:700; padding:14px 28px; border-radius:999px; text-decoration:none; }
+    .stores { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:20px; }
+    .stores a { background:#fff; color:var(--navy); font-family:'Sora','Segoe UI',system-ui,sans-serif; font-weight:600; padding:12px 22px; border-radius:999px; text-decoration:none; font-size:15px; }
+    footer.meta { padding:28px 20px 48px; color:var(--slate); font-size:14px; text-align:center; }
+    footer.meta a { color:var(--slate); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How NHY Turns Table QR Ordering Into a Live Restaurant OS",
+    "description": "A practical demo story for cafe, QSR, bakery, food court and retail operators on connecting customer orders, menu edits, payments, kitchen tickets and sales signals with the NHY React Native app and Nautical POS.",
+    "url": "https://www.nautical.co.in/blog/nhy-qr-ordering-restaurant-os.html",
+    "author": { "@type": "Organization", "name": "Nautical POS" },
+    "publisher": { "@type": "Organization", "name": "Nautical POS", "url": "https://www.nautical.co.in" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.nautical.co.in/blog/nhy-qr-ordering-restaurant-os.html" }
+  }
+  </script>
+</head>
+<body>
+  <header class="hero"><div class="wrap">
+    <div class="anchor">Nautical POS · NHY App</div>
+    <h1>How NHY Turns Table QR Ordering Into a Live Restaurant OS</h1>
+    <p class="deck">A practical demo story for cafe, QSR, bakery, food court and retail operators who want every customer order, menu edit, payment, kitchen ticket and sales signal to stay connected.</p>
+  </div></header>
+
+  <section class="section"><div class="wrap">
+    <p>Most growing cafes and quick-service restaurants do not fail because the food is weak. They struggle because ordering, kitchen communication, menu updates, billing, inventory and customer data sit in separate places. A price change is updated on a printed menu but not at the counter. A bestseller runs out, but staff still accept orders. Payments happen, but the owner only sees the real pattern at closing time.</p>
+    <p>NHY is designed for this audience: owners who are already busy, already selling, and now need a clean operating system that can run from phone, browser, kiosk and POS terminal. This guide shows how a table order becomes a live business signal — and how the same QR code ordering system works for cafes, QSRs, bakeries, cloud kitchens, food courts and retail counters.</p>
+  </div></section>
+
+  <section class="section sand"><div class="wrap">
+    <h2>The daily pressure</h2>
+    <h3>Busy counters, changing menus and scattered data slow down good stores.</h3>
+    <p>Ordering, kitchen communication, menu updates, billing, inventory and customer data sitting in separate places is the single biggest blind spot for restaurant POS software users. The NHY React Native app closes that gap by connecting the customer-facing side — mobile ordering, live menus, payments — with the owner side: menu builder, inventory, team, tables and billing from one dashboard.</p>
+  </div></section>
+
+  <section class="section"><div class="wrap">
+    <h2>Demo workflow</h2>
+    <h3>A table order becomes a live business signal.</h3>
+    <p>Imagine four friends sitting at table 12. They scan a Nautical QR, open the current menu, add items with variants and add-ons, pay with UPI or card, and watch the order status move from accepted to preparing to served. At the same time, the kitchen gets the ticket, the owner dashboard records demand, and inventory can be adjusted around what actually sold.</p>
+    <div class="steps">
+      <div class="step"><div class="num">01</div><h3>Scan and detect table context</h3><p>The guest opens the correct store, table, service mode and catalog without waiting for staff — the core of any contactless ordering setup.</p></div>
+      <div class="step"><div class="num">02</div><h3>Browse a live menu</h3><p>Photos, prices, add-ons, availability, tags and recommended items stay aligned with the owner menu builder, so the printed menu and the digital menu never disagree.</p></div>
+      <div class="step"><div class="num">03</div><h3>Route paid orders to kitchen</h3><p>Kitchen staff receive structured tickets with item notes and table details, reducing counter calls and handwritten confusion.</p></div>
+    </div>
+  </div></section>
+
+  <section class="section sand"><div class="wrap">
+    <h2>NHY data app value</h2>
+    <h3>The data layer is where the owner wins.</h3>
+    <p>The NHY data app view is useful because every order becomes structured data. Owners can see which categories move, which items convert, when rush hours happen, and whether staff need to update stock or pricing before customers complain.</p>
+    <div class="ops">
+      <div class="op"><strong>Live catalog</strong> Menu and category edits flow into the customer experience instantly.</div>
+      <div class="op"><strong>Order intelligence</strong> Track item demand, table activity, payment status and kitchen progress.</div>
+      <div class="op"><strong>Owner control</strong> Manage menu, inventory, team, tables and billing from one dashboard.</div>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="wrap">
+    <h2>Video-style preview</h2>
+    <h3>A visual demo sequence for the full ordering loop.</h3>
+    <p>This animated preview shows the kind of flow a real product video can highlight: customer QR scan, menu selection, checkout, kitchen ticket and owner analytics. It uses existing Nautical visuals so the blog stays lightweight while still feeling alive.</p>
+    <div class="ops">
+      <div class="op"><strong>NHY live demo</strong> Table 12 · Paid · 4 items · Kitchen ticket routed · Top item: Cold Coffee · 00:42</div>
+    </div>
+  </div></section>
+
+  <section class="section sand"><div class="wrap">
+    <h2>Operator experience</h2>
+    <h3>Not just QR ordering. A complete control room for daily operations.</h3>
+    <p>The best version of NHY is not a single screen. It is the connection between customer ordering, counter billing, kitchen display, catalog management, inventory, subscriptions and analytics. That connection lets an owner change the menu once and trust the store experience to follow — whether the store is a cafe, a QSR, a bakery, a cloud kitchen, a food court or a retail counter.</p>
+  </div></section>
+
+  <section class="section"><div class="wrap">
+    <h2>Takeaway</h2>
+    <h3>For operators, the goal is not more software. It is fewer blind spots.</h3>
+    <p>NHY is aimed at business owners who want a modern ordering experience without losing control of operations. Customers get a fast, clean ordering journey. Staff get structured tickets. Owners get data they can act on before the day is over. For more on the full owner console — AI menu builder, inventory and AI Marketing Studio — read the companion guide on the NHY React Native app.</p>
+    <p><a href="/blog/nhy-react-native-app.html">How the NHY App Turns Menu, QR Orders, Stock and Ads Into One Floor →</a></p>
+  </div></section>
+
+  <section class="cta"><div class="wrap">
+    <h2>Open the owner console.</h2>
+    <p>Tap Tap Go. Order in 3 Seconds.</p>
+    <a class="btn" href="https://app.nautical.co.in/login">Try Nautical POS</a>
+    <div class="stores">
+      <a href="https://apps.apple.com/in/app/nautical-pos/id0000000000" rel="nofollow noopener" target="_blank">Download on the App Store</a>
+      <a href="https://play.google.com/store/apps/details?id=com.nautical.pos" rel="nofollow noopener" target="_blank">Get it on Google Play</a>
+    </div>
+  </div></section>
+  <footer class="meta">Nautical POS · <a href="https://www.nautical.co.in">nautical.co.in</a> · <a href="https://app.nautical.co.in">app.nautical.co.in</a></footer>
+</body>
+</html>
