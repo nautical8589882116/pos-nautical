@@ -7,63 +7,43 @@
   <meta name="description" content="A practical guide for restaurant, cafe, bar and retail owners on the NHY React Native app — AI menu builder, QR code ordering, inventory and AI Marketing Studio inside Nautical POS." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.nautical.co.in/blog/nhy-react-native-app.html" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="How the NHY App Turns Menu, QR Orders, Stock and Ads Into One Floor | Nautical POS" />
-  <meta property="og:description" content="A practical guide for restaurant, cafe, bar and retail owners on the NHY React Native app — AI menu builder, QR code ordering, inventory and AI Marketing Studio inside Nautical POS." />
-  <meta property="og:url" content="https://www.nautical.co.in/blog/nhy-react-native-app.html" />
-  <meta property="og:site_name" content="Nautical POS" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="How the NHY App Turns Menu, QR Orders, Stock and Ads Into One Floor | Nautical POS" />
-  <meta name="twitter:description" content="A practical guide for restaurant, cafe, bar and retail owners on the NHY React Native app — AI menu builder, QR code ordering, inventory and AI Marketing Studio inside Nautical POS." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <meta property="article:published_time" content="2026-09-29T21:22:00+05:30" />
+  <meta property="article:modified_time" content="2026-09-29T21:54:00+05:30" />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
   <style>
     :root { --navy:#0B2545; --deep-navy:#061A33; --teal:#17C3CE; --soft-teal:#E6FAFB; --ink:#1F2933; --slate:#5A6B7B; --sand:#F7F9FB; --amber:#F6A609; --paper:#FFFFFF; }
     * { box-sizing:border-box; }
-    html, body { margin:0; padding:0; background:var(--paper); color:var(--ink); font-family:'Inter',-apple-system,'Segoe UI',sans-serif; font-size:18px; line-height:1.7; overflow-x:hidden; }
+    html, body { margin:0; padding:0; background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; font-size:18px; line-height:1.7; }
     a { color:var(--teal); text-decoration:none; }
-    h1,h2 { font-family:'Sora','Segoe UI',system-ui,sans-serif; font-weight:700; letter-spacing:-0.03em; color:var(--navy); line-height:1.2; }
+    h1,h2 { font-family:'Sora',sans-serif; font-weight:700; letter-spacing:-0.03em; color:var(--navy); line-height:1.2; }
     .wrap { max-width:760px; margin:0 auto; padding:0 20px; }
     .hero { background:var(--navy); color:#fff; padding:72px 20px 64px; }
-    .anchor { color:var(--teal); font-family:'Sora','Segoe UI',system-ui,sans-serif; font-weight:600; font-size:13px; letter-spacing:0.16em; text-transform:uppercase; margin-bottom:18px; }
+    .anchor { color:var(--teal); font-family:'Sora',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.16em; text-transform:uppercase; margin-bottom:18px; }
     .hero h1 { color:#fff; font-size:clamp(28px,6vw,44px); margin:0 0 16px; }
-    .hero .deck { color:var(--teal); font-size:18px; font-weight:500; margin:0; }
+    .hero .deck { color:var(--teal); font-size:18px; margin:0 0 16px; }
+    .hero time { color:#9bb4c9; font-size:14px; }
     .section { padding:56px 0; }
     .section.sand { background:var(--sand); }
     h2 { font-size:clamp(22px,4vw,30px); margin:0 0 18px; }
     p { margin:0 0 16px; }
     .quote { background:var(--soft-teal); border-left:4px solid var(--teal); padding:28px 24px; }
     .quote p { font-family:'Instrument Serif',Georgia,serif; font-style:italic; font-size:clamp(28px,4vw,32px); line-height:1.35; color:var(--navy); margin:0; }
-    .cards { display:grid; grid-template-columns:1fr; gap:16px; }
+    .cards { display:grid; gap:16px; }
     @media (min-width:640px) { .cards { grid-template-columns:repeat(3,1fr); } }
     .card { background:#fff; border:1.5px solid var(--teal); border-radius:14px; padding:22px 18px; }
-    .card .num { font-family:'Sora','Segoe UI',system-ui,sans-serif; font-weight:700; font-size:28px; color:var(--amber); margin-bottom:8px; }
-    .card p { margin:0; font-size:15px; color:var(--slate); }
+    .card .num { font-family:'Sora',sans-serif; font-weight:700; font-size:28px; color:var(--amber); }
     .ops { display:grid; gap:14px; }
     .op { background:#fff; border-radius:12px; padding:16px 18px; border:1px solid #d7e2ea; }
-    .op strong { display:block; font-family:'Sora','Segoe UI',system-ui,sans-serif; color:var(--navy); }
-    .img-slot { border:2px dashed var(--teal); background:var(--soft-teal); border-radius:14px; padding:20px; margin:24px 0 8px; }
     .cta { background:var(--deep-navy); padding:64px 20px; text-align:center; }
     .cta h2 { color:#fff; }
-    .cta p { color:#c9d6e3; max-width:520px; margin:0 auto 28px; }
-    .btn { display:inline-block; background:var(--teal); color:var(--deep-navy); font-family:'Sora','Segoe UI',system-ui,sans-serif; font-weight:700; padding:14px 28px; border-radius:999px; text-decoration:none; }
+    .cta p { color:#c9d6e3; }
+    .btn { display:inline-block; background:var(--teal); color:var(--deep-navy); font-family:'Sora',sans-serif; font-weight:700; padding:14px 28px; border-radius:999px; }
     .stores { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:20px; }
-    .stores a { background:#fff; color:var(--navy); font-family:'Sora','Segoe UI',system-ui,sans-serif; font-weight:600; padding:12px 22px; border-radius:999px; text-decoration:none; font-size:15px; }
+    .stores a { background:#fff; color:var(--navy); font-family:'Sora',sans-serif; font-weight:600; padding:12px 22px; border-radius:999px; }
     footer.meta { padding:28px 20px 48px; color:var(--slate); font-size:14px; text-align:center; }
-    footer.meta a { color:var(--slate); }
   </style>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "How the NHY App Turns Menu, QR Orders, Stock and Ads Into One Floor",
-    "description": "A practical guide for restaurant, cafe, bar and retail owners on the NHY React Native app — AI menu builder, QR code ordering, inventory and AI Marketing Studio inside Nautical POS.",
-    "url": "https://www.nautical.co.in/blog/nhy-react-native-app.html",
-    "author": { "@type": "Organization", "name": "Nautical POS" },
-    "publisher": { "@type": "Organization", "name": "Nautical POS", "url": "https://www.nautical.co.in" },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.nautical.co.in/blog/nhy-react-native-app.html" }
-  }
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":"How the NHY App Turns Menu, QR Orders, Stock and Ads Into One Floor","datePublished":"2026-09-29T21:22:00+05:30","dateModified":"2026-09-29T21:54:00+05:30","url":"https://www.nautical.co.in/blog/nhy-react-native-app.html","author":{"@type":"Organization","name":"Nautical POS"},"publisher":{"@type":"Organization","name":"Nautical POS","url":"https://www.nautical.co.in"}}
   </script>
 </head>
 <body>
@@ -71,6 +51,7 @@
     <div class="anchor">Nautical POS · NHY App</div>
     <h1>The floor changed. Your printed menu did not have to keep up alone.</h1>
     <p class="deck">How the NHY React Native app rebuilds the catalogue, the table QR, the stock room and the ad from one owner screen.</p>
+    <time datetime="2026-09-29T21:22:00+05:30">Written Tuesday, 29 September 2026 · 9:22 PM IST</time>
   </div></header>
   <section class="section"><div class="wrap">
     <p>You already know the scene. A laminated menu that still lists last monsoon’s special. A table that waits ten minutes to catch a server’s eye. A bar that 86s a bottle mid-shift. A shop window that should have a new photo — and never gets one because the owner is on the till.</p>
@@ -79,7 +60,6 @@
   <section class="section sand"><div class="wrap">
     <h2>Stop retyping the printed menu</h2>
     <p>An AI menu builder reads a printed-menu photo and builds categories and items. Then you add colour, imagery, price, calories, veg/spicy/featured flags, and Breakfast / Lunch / Dinner availability. Retail shops can import a Shopify CSV instead.</p>
-    <div class="img-slot"><strong>Image slot 01</strong><br/>Brief: owner photographing a printed list while NHY builds the catalogue.<br/>Alt: Owner photographing a printed menu while the Nautical NHY AI Menu Builder builds items.<br/>Caption: Import from photo turns a printed card into a live catalogue.</div>
   </div></section>
   <section class="section"><div class="wrap">
     <h2>The table should not wait for a wave</h2>
@@ -95,7 +75,6 @@
   <section class="section"><div class="wrap">
     <h2>A ticket has a life. Watch it.</h2>
     <p>Orders move Pending → Preparing → Ready → Completed. Send a receipt. Filter by date, table, payment method and status.</p>
-    <div class="img-slot"><strong>Image slot 02</strong><br/>Brief: guest QR menu beside the owner order pipeline.<br/>Alt: Guest QR web menu beside the NHY order pipeline.<br/>Caption: Scan, choose a portion, read the bill, submit.</div>
   </div></section>
   <section class="section sand"><div class="wrap">
     <h2>Find out the shelf is empty before the guest does</h2>
@@ -104,11 +83,10 @@
   <section class="section"><div class="wrap">
     <h2>The photo that never got taken</h2>
     <p>AI Marketing Studio: AI Trial Lab mockups, AI video ads for any item, AI try-on for products. The catalogue item becomes the campaign without a shoot day.</p>
-    <div class="img-slot"><strong>Image slot 03</strong><br/>Brief: mockup and video-ad preview in AI Marketing Studio.<br/>Alt: Nautical AI Marketing Studio mockup and generated video ad.<br/>Caption: Mockup, video ad, try-on.</div>
   </div></section>
   <section class="section sand"><div class="wrap">
     <h2>One afternoon scoreboard</h2>
-    <p>Dashboard: today’s revenue, orders, average order value. Billing, team accounts, store settings. Plans from a free tier up to Enterprise.</p>
+    <p>Dashboard: today’s revenue, orders, average order value. Billing, team accounts, store settings.</p>
     <div class="cards">
       <div class="card"><div class="num">3 seconds</div><p>Tap tap go — live bill, not a download screen.</p></div>
       <div class="card"><div class="num">One QR</div><p>Per table, counter, or fitting room. No guest app.</p></div>
@@ -124,6 +102,6 @@
       <a href="https://play.google.com/store/apps/details?id=com.nautical.pos" rel="nofollow noopener" target="_blank">Get it on Google Play</a>
     </div>
   </div></section>
-  <footer class="meta">Nautical POS · <a href="https://www.nautical.co.in">nautical.co.in</a> · <a href="https://app.nautical.co.in">app.nautical.co.in</a></footer>
+  <footer class="meta">Nautical POS · nautical.co.in · app.nautical.co.in · Written 29 September 2026, 9:22 PM IST</footer>
 </body>
 </html>
