@@ -1,0 +1,9 @@
+{
+  "routes": [
+    { "route": "/blog", "rewrite": "/blog/nhy-react-native-app.html" },
+    { "route": "/blog/nhy-react-native-app", "rewrite": "/blog/nhy-react-native-app.html" }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html"
+  }
+}
