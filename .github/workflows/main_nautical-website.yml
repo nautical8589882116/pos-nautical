@@ -21,13 +21,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_0996AECDD5ED4835A722DF0FF6B881A3}}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2FBBCE3C14FC41C98E0A358A657C11C9}}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_C4DC43F4C2D749069661EF9E1F3C0296}}
-
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
