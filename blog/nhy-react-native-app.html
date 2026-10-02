@@ -3,135 +3,148 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Suggested title: How the NHY App Rebuilds the Menu, the Table QR and the Stock Room | Nautical POS -->
-  <!-- Suggested meta description: A practical guide for restaurant, café, bar and retail owners on the NHY React Native app — AI menu builder, QR code ordering system, contactless ordering and retail inventory management inside Nautical POS. -->
-  <title>How the NHY App Rebuilds the Menu, the Table QR and the Stock Room | Nautical POS</title>
-  <meta name="description" content="A practical guide for restaurant, café, bar and retail owners on the NHY React Native app — AI menu builder, QR code ordering system, contactless ordering and retail inventory management inside Nautical POS." />
-  <meta name="robots" content="index, follow" />
+  <!-- Suggested title: How the NHY App Handles the Menu, the Waiting Table and the Empty Shelf -->
+  <!-- Suggested meta description: A practical guide for restaurant, café, bar and retail owners on the NHY React Native app — AI menu builder, QR code ordering system, contactless ordering, order pipeline and retail inventory management inside Nautical POS. -->
+  <title>How the NHY App Handles the Menu, the Waiting Table and the Empty Shelf | Nautical POS</title>
+  <meta name="description" content="A practical guide for restaurant, café, bar and retail owners on the NHY React Native app — AI menu builder, QR code ordering system, contactless ordering, order pipeline and retail inventory management inside Nautical POS." />
   <link rel="canonical" href="https://www.nautical.co.in/blog/nhy-react-native-app.html" />
-  <meta property="article:published_time" content="2026-09-29T21:22:00+05:30" />
-  <meta property="article:modified_time" content="2026-10-01T15:15:00+05:30" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
   <style>
-    :root { --navy:#0B2545; --deep-navy:#061A33; --teal:#17C3CE; --soft-teal:#E6FAFB; --ink:#1F2933; --slate:#5A6B7B; --sand:#F7F9FB; --amber:#F6A609; --paper:#FFFFFF; }
+    :root { --navy:#0B2545; --deep:#061A33; --teal:#17C3CE; --soft:#E6FAFB; --ink:#1F2933; --slate:#5A6B7B; --sand:#F7F9FB; --amber:#F6A609; --paper:#FFFFFF; }
     * { box-sizing:border-box; }
-    html, body { margin:0; padding:0; background:var(--paper); color:var(--ink); font-family:'Inter', -apple-system, 'Segoe UI', sans-serif; font-size:18px; line-height:1.7; overflow-x:hidden; }
+    html, body { margin:0; padding:0; background:var(--paper); color:var(--ink); overflow-x:hidden; }
+    body { font-family:'Inter', -apple-system, 'Segoe UI', sans-serif; font-size:18px; line-height:1.7; font-weight:400; }
     img { max-width:100%; height:auto; display:block; }
     a { color:var(--teal); }
-    h1, h2 { font-family:'Sora', 'Segoe UI', system-ui, sans-serif; font-weight:700; letter-spacing:-0.03em; color:var(--navy); line-height:1.2; }
-    .wrap { max-width:760px; margin:0 auto; padding:0 20px; }
-    .hero { background:var(--navy); color:#fff; padding:72px 20px 64px; }
-    .anchor { color:var(--teal); font-family:'Sora', 'Segoe UI', system-ui, sans-serif; font-weight:600; font-size:13px; letter-spacing:0.16em; text-transform:uppercase; margin:0 0 18px; }
-    .hero h1 { color:#fff; font-size:clamp(30px, 6vw, 46px); margin:0 0 16px; }
-    .hero .deck { color:var(--teal); font-size:18px; margin:0 0 14px; }
-    .hero time { color:#9bb4c9; font-size:14px; }
-    .section { padding:56px 0; }
-    .section.sand { background:var(--sand); }
-    h2 { font-size:clamp(22px, 4vw, 30px); margin:0 0 16px; }
+    h1, h2, h3 { font-family:'Sora', 'Segoe UI', system-ui, sans-serif; letter-spacing:-0.03em; color:var(--navy); line-height:1.2; }
+    h1 { font-weight:700; font-size:clamp(30px, 6vw, 46px); margin:0 0 14px; color:#fff; }
+    h2 { font-weight:700; font-size:clamp(24px, 4vw, 32px); margin:0 0 16px; }
+    h3 { font-weight:600; font-size:18px; margin:0 0 6px; }
     p { margin:0 0 16px; }
-    .quote { background:var(--soft-teal); border-left:4px solid var(--teal); padding:28px 24px; margin:8px 0 0; }
-    .quote p { font-family:'Instrument Serif', Georgia, serif; font-style:italic; font-size:clamp(28px, 4vw, 34px); line-height:1.35; color:var(--navy); margin:0; }
-    .cards { display:grid; gap:16px; margin-top:8px; }
-    @media (min-width:640px) { .cards { grid-template-columns:repeat(3, 1fr); } }
-    .card { background:#fff; border:1.5px solid var(--teal); border-radius:14px; padding:22px 18px; }
-    .card .num { font-family:'Sora', 'Segoe UI', system-ui, sans-serif; font-weight:700; font-size:26px; color:var(--amber); letter-spacing:-0.03em; margin-bottom:6px; }
+    .wrap { max-width:760px; margin:0 auto; padding:0 20px; }
+    .hero { background:var(--navy); color:#fff; padding:72px 0 64px; }
+    .motif { font-family:'Sora', 'Segoe UI', system-ui, sans-serif; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; font-size:13px; color:var(--teal); margin-bottom:18px; }
+    .deck { color:var(--teal); font-size:18px; margin:0; font-weight:500; }
+    .section { padding:56px 0; }
+    .sand { background:var(--sand); }
+    .quote { background:var(--soft); border-left:4px solid var(--teal); padding:28px 28px 22px; margin:8px 0 0; }
+    .quote p { font-family:'Instrument Serif', Georgia, serif; font-style:italic; font-size:clamp(26px, 4vw, 32px); line-height:1.35; color:var(--navy); margin:0; }
+    .quote span { display:block; margin-top:12px; font-family:'Inter', -apple-system, 'Segoe UI', sans-serif; font-style:normal; font-size:14px; color:var(--slate); }
+    .cards { display:grid; grid-template-columns:1fr; gap:14px; margin-top:8px; }
+    @media (min-width:700px) { .cards { grid-template-columns:repeat(3, 1fr); } }
+    .card { border:1.5px solid var(--teal); border-radius:14px; padding:18px 16px; background:#fff; }
+    .card strong { display:block; font-family:'Sora', 'Segoe UI', system-ui, sans-serif; font-weight:700; font-size:28px; color:var(--amber); letter-spacing:-0.03em; line-height:1.15; margin-bottom:8px; }
     .card p { margin:0; font-size:15px; color:var(--slate); }
-    .ops { display:grid; gap:12px; margin-top:8px; }
-    @media (min-width:640px) { .ops { grid-template-columns:1fr 1fr; } }
-    .op { background:#fff; border-radius:12px; padding:16px 18px; border:1px solid #d7e2ea; }
-    .op strong { font-family:'Sora', 'Segoe UI', system-ui, sans-serif; color:var(--navy); display:block; margin-bottom:4px; }
-    .slot { border:1.5px dashed var(--teal); border-radius:14px; background:#fff; padding:18px; margin:18px 0 8px; }
-    .slot .label { font-family:'Sora', 'Segoe UI', system-ui, sans-serif; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal); margin:0 0 8px; }
+    .slot { border:1.5px dashed var(--teal); border-radius:12px; background:var(--sand); padding:18px 16px; margin:22px 0 8px; }
+    .slot .label { font-family:'Sora', 'Segoe UI', system-ui, sans-serif; font-weight:600; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--teal); margin-bottom:8px; }
     .slot p { font-size:15px; margin:0 0 8px; }
     .slot .cap { color:var(--slate); font-size:14px; margin:0; }
-    .cta { background:var(--deep-navy); padding:64px 20px; text-align:center; }
-    .cta h2 { color:#fff; margin:0 0 12px; }
-    .cta p { color:#c9d6e3; max-width:520px; margin:0 auto 24px; }
-    .btn { display:inline-block; background:var(--teal); color:var(--deep-navy); font-family:'Sora', 'Segoe UI', system-ui, sans-serif; font-weight:700; padding:14px 28px; border-radius:999px; text-decoration:none; }
-    footer.meta { padding:28px 20px 48px; color:var(--slate); font-size:14px; text-align:center; }
+    .ops { display:grid; gap:12px; margin:8px 0 4px; }
+    .op { background:#fff; border-radius:12px; padding:14px 16px; }
+    .cta { background:var(--deep); color:#fff; padding:64px 0; text-align:center; }
+    .cta h2 { color:#fff; margin-bottom:10px; }
+    .cta p { color:#c9d6e3; margin-bottom:22px; }
+    .btn { display:inline-block; background:var(--teal); color:var(--deep); font-family:'Sora', 'Segoe UI', system-ui, sans-serif; font-weight:700; text-decoration:none; padding:14px 28px; border-radius:999px; }
+    footer { padding:28px 0 48px; color:var(--slate); font-size:14px; text-align:center; }
   </style>
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"BlogPosting","headline":"How the NHY App Rebuilds the Menu, the Table QR and the Stock Room","datePublished":"2026-09-29T21:22:00+05:30","dateModified":"2026-10-01T15:15:00+05:30","url":"https://www.nautical.co.in/blog/nhy-react-native-app.html","author":{"@type":"Organization","name":"Nautical POS"},"publisher":{"@type":"Organization","name":"Nautical POS","url":"https://www.nautical.co.in"}}
-  </script>
 </head>
 <body>
   <header class="hero">
     <div class="wrap">
-      <p class="anchor">⚓ Nautical POS · NHY App</p>
-      <h1>The floor moved. The laminated menu did not have to be retyped by hand.</h1>
-      <p class="deck">How the NHY React Native app handles the catalogue, the table QR, the stock room and the ad — for restaurants, cafés, bars and shops.</p>
-      <time datetime="2026-10-01T15:15:00+05:30">Updated Thursday, 1 October 2026 · 3:15 PM IST</time>
+      <div class="motif">⚓ Nautical POS · NHY app</div>
+      <h1>The printed menu, the waiting table, and the shelf that emptied mid-shift</h1>
+      <p class="deck">Tap Tap Go. ⚓ Order in 3 Seconds. How the NHY app handles the work that used to stall the floor.</p>
     </div>
   </header>
 
   <section class="section">
     <div class="wrap">
-      <p>You already know the afternoon. A printed menu still lists last season’s special, so someone types every dish again. A table waits ten minutes to catch a server’s eye. Halfway through service the bar finds the bottle is gone, or the shop finds the size is gone. The marketing photo never got taken because the person who would have taken it was on the till.</p>
-      <p>Those are not software problems. They are floor problems. Restaurant POS software only helps if it meets them where they happen — and if the same owner console also works for a café, a bar and a retail shop. The NHY app in Nautical POS is that console. Guests never download it. Operators live in it. Tap Tap Go. ⚓ Order in 3 Seconds.</p>
+      <p>Saturday service starts the same way in a restaurant, a café, a bar and a retail shop. Someone is retyping a printed menu by hand. A table has been trying for ten minutes to catch a server’s eye. Halfway through the shift the chai, the house pour, or the bestselling bottle is gone, and nobody noticed until a guest asked.</p>
+      <p>Restaurant POS software that only rings a bill leaves the menu, the queue and the stock room in three notebooks. The NHY React Native app — the owner console in Nautical POS — is for restaurant owners, café owners, bar managers and shop owners, so the screen that takes the order also knows what can still be sold.</p>
+      <div class="slot">
+        <div class="label">Image slot</div>
+        <p><strong>Brief:</strong> Phone in a busy café, printed menu on the counter, owner retyping items into NHY beside the owner dashboard.</p>
+        <p><strong>Alt text:</strong> Café owner comparing a printed menu with the Nautical POS owner dashboard on a phone.</p>
+        <p class="cap">Suggested caption: The menu should not have to be typed twice.</p>
+      </div>
     </div>
   </section>
 
   <section class="section sand">
     <div class="wrap">
-      <h2>Stop retyping the printed menu</h2>
-      <p>An AI menu builder starts from the paper you already have. Import from photo reads a printed menu picture and builds the categories and items. You then set a category colour and image, a price, calories, veg, spicy and featured flags, and availability by Breakfast, Lunch or Dinner. A café can hide the lunch board at 11. A shop does not force food fields onto a catalogue — Shopify CSV import brings the retail list in instead.</p>
-      <p>On the owner console the same screen is labelled Menu Builder. Import (AI) sits next to Add Category and Add Item. Catalog profiles switch the active fields: Restaurant, Café, Bar & Pub, Bakery, Retail Shop, Boutique and more. One app, the right fields for the room you run.</p>
+      <h2>Stop retyping the card. Build it once.</h2>
+      <p>The AI menu builder is where the catalogue lives. Categories can carry a colour and an image, so a lunch board and a bar list do not look like the same grey sheet. Each item holds a price, calories where you want them, and simple flags — veg, spicy, featured — plus availability by Breakfast, Lunch and Dinner. A breakfast sandwich can drop off the board at 11 without anyone remembering to hide it.</p>
+      <p>Import from photo reads a printed menu and builds the categories and items for you. Photograph the card, let the AI menu builder draft the structure, then correct names and prices before it goes live. A retail catalogue can come in from a Shopify CSV you already have. Catalogue profiles cover a restaurant board and a retail shop, so mixed counters are not forced into one set of fields.</p>
+      <p>A restaurant owner uses it for thalis. A café owner uses it for the pastry case. A bar manager uses it for the spirits list. A shop owner uses it for sizes and the product that should be featured on the counter. Same builder. Different catalogue.</p>
       <div class="slot">
-        <p class="label">Image slot · menu builder</p>
-        <p><strong>Brief:</strong> Phone or desktop capture of the NHY Menu Builder on app.nautical.co.in after owner sign-in — Import (AI), Add Category, catalog profile chips (Café, Bar & Pub, Retail Shop), and Shopify CSV. No guest data in frame.</p>
-        <p><strong>Alt text:</strong> NHY AI menu builder with Import from photo, category controls and catalog profiles for café, bar and retail.</p>
-        <p class="cap">Caption: Import from photo builds the list. You set colour, flags and which service it belongs to.</p>
+        <div class="label">Image slot</div>
+        <p><strong>Brief:</strong> Menu Builder with Import (AI), a coloured category, veg and spicy flags, and Breakfast / Lunch / Dinner availability.</p>
+        <p><strong>Alt text:</strong> AI menu builder in the NHY app showing categories, item flags and meal-time availability.</p>
+        <p class="cap">Suggested caption: Import from photo drafts the menu. You still set the price.</p>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="wrap">
-      <h2>The table should not wait for a wave</h2>
-      <p>Contactless ordering in NHY is a per-table QR code. The guest scans with the phone camera and lands on a web menu. There is no app download. They pick a portion size — Quarter, Half or Full — apply a coupon, and see a live summary with subtotal, service charge, tax and discount before they submit. That last screen matters. People stop when the total appears as a surprise at the till.</p>
-      <div class="ops">
-        <div class="op"><strong>Restaurant</strong> Table 12 scans, chooses Full, and the ticket exists before anyone walks the floor.</div>
-        <div class="op"><strong>Café</strong> A two-top orders while the barista is on the steam wand. The QR code ordering system does not need a spare pair of hands.</div>
-        <div class="op"><strong>Bar</strong> A booth reorders a Half pour without fighting the rail for eye contact.</div>
-        <div class="op"><strong>Retail shop</strong> A counter or fitting-room QR turns the catalogue into a ticket the same way a table does.</div>
-      </div>
-      <div class="slot">
-        <p class="label">Image slot · guest QR</p>
-        <p><strong>Brief:</strong> Two frames: a table tent QR, then the guest web menu on a phone showing Quarter / Half / Full and the bill summary. No branding beyond Nautical.</p>
-        <p><strong>Alt text:</strong> Guest phone on a Nautical web menu after a table QR scan, with portion sizes and a live total.</p>
-        <p class="cap">Caption: Scan, choose a portion, see the total, send. No download.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section sand">
     <div class="wrap">
       <div class="quote">
-        <p>The guest should never download your operating system. The owner should live in it.</p>
+        <p>The guest should not need an app, and the owner should not need a second system, for the same plate to leave the pass.</p>
+        <span>From this guide — not a customer quote.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sand">
+    <div class="wrap">
+      <h2>A table QR, not a wave across the room</h2>
+      <p>Contactless ordering in NHY is a per-table QR code. The guest scans it with the phone camera and lands on a web menu. There is no app download. They pick a portion size — Quarter, Half or Full — apply a coupon if you have one running, and see a live summary with subtotal, service charge, tax and discount before they submit. That screen is the difference between a surprise bill and a bill the table already agreed to.</p>
+      <div class="ops">
+        <div class="op"><h3>Restaurant</h3><p>The family that cannot catch a server orders the thali at Full and the child’s portion at Quarter. The ticket is already in the pipeline.</p></div>
+        <div class="op"><h3>Café</h3><p>A laptop table scans, adds a pastry, and stays seated. Staff stop doing laps just to take a second coffee.</p></div>
+        <div class="op"><h3>Bar</h3><p>A round orders from the table QR instead of waiting out a three-deep bar. Portion size covers the shared plates.</p></div>
+        <div class="op"><h3>Retail shop</h3><p>The same QR works at a counter display: scan, confirm the total with tax and any discount, then submit. No separate ordering app.</p></div>
+      </div>
+      <p>This QR code ordering system stays tied to the live catalogue. If an item is unavailable for Dinner, it should not still be orderable at 8pm. That is the point of building the menu in the same app that prints the code.</p>
+      <div class="slot">
+        <div class="label">Image slot</div>
+        <p><strong>Brief:</strong> Guest phone scanning a table QR, web menu open, portion picker on Quarter / Half / Full, summary with subtotal, service charge, tax and discount.</p>
+        <p><strong>Alt text:</strong> Guest scanning a table QR code and reviewing a contactless order summary before submitting.</p>
+        <p class="cap">Suggested caption: Scan, choose a portion, see the total, send the order.</p>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <h2>A ticket has a life. Watch it.</h2>
-      <p>Once the order lands, it moves Pending, then Preparing, then Ready, then Completed. You can send the receipt from that same board. Filters cover date, table, payment method and status, so a bar manager can pull unpaid tabs and a shop owner can pull today’s card sales without a spreadsheet first. Cancelled sits beside the live states, so a void is a status, not a story someone has to remember.</p>
-      <p>The owner console calls this order history: daily, weekly, monthly or a custom range, plus table number, paid or unpaid, and that status list. The kitchen view is one tap away.</p>
+      <h2>Pending, preparing, ready, done</h2>
+      <p>Once the order lands, it moves through a short pipeline: Pending, then Preparing, then Ready, then Completed. Receipts can be sent from the same flow. Filters cover date, table, payment method and status, so a bar manager can pull tonight’s card payments and a café owner can see which table is still waiting.</p>
+      <p>The owner dashboard shows the same statuses beside today’s revenue, today’s orders and average order value. Billing, team accounts and store settings sit in the same set, so adding a closer is not a call to a vendor. Plans range from a free tier up to Enterprise.</p>
+      <div class="cards">
+        <div class="card"><strong>4 steps</strong><p>Pending → Preparing → Ready → Completed. One pipeline for the ticket.</p></div>
+        <div class="card"><strong>No download</strong><p>Guests scan a table QR and order on the web menu in the phone they already have.</p></div>
+        <div class="card"><strong>3 dayparts</strong><p>Breakfast, Lunch and Dinner availability, so the board matches the shift.</p></div>
+      </div>
+      <div class="slot">
+        <div class="label">Image slot</div>
+        <p><strong>Brief:</strong> Orders screen filtered by status, with Pending, Preparing, Ready and Completed visible, plus a receipt action.</p>
+        <p><strong>Alt text:</strong> Order pipeline in Nautical POS filtered by status, table and payment method.</p>
+        <p class="cap">Suggested caption: The pass and the owner look at the same ticket.</p>
+      </div>
     </div>
   </section>
 
   <section class="section sand">
     <div class="wrap">
-      <h2>Find out the shelf is empty before the guest does</h2>
-      <p>Inventory in NHY covers food stock and retail stock in the same place. Low-stock alerts fire before the 86. Purchase orders record what you asked the supplier for. Transfers move quantity between locations when one café is heavy and the other is light, or when a shop moves a size from the storeroom to the floor.</p>
-      <p>That is the retail inventory management app job and the kitchen job at once. A bar counts bottles. A boutique counts sizes. The floor should hear it before the guest does.</p>
+      <h2>Know the shelf before the guest does</h2>
+      <p>Running out mid-shift is a floor problem and a back-room problem. Inventory covers food stock and retail stock, low-stock alerts, purchase orders, and transfers between locations. A restaurant sees the chilli oil before dinner. A café sees the oat milk. A bar sees the well spirit. A shop sees the size that sells out on Saturday and raises a purchase order instead of discovering the gap at the counter.</p>
+      <p>Alerts sit on the dashboard, not in a Monday report. This is the retail inventory management app path and the kitchen stock path in one place — what a café with a bottle shelf, or a bar with a food menu, actually needs.</p>
       <div class="slot">
-        <p class="label">Image slot · stock</p>
-        <p><strong>Brief:</strong> Inventory screen on the NHY app showing food and retail stock, a low-stock alert, and a transfer or purchase order. Crop any supplier phone numbers.</p>
-        <p><strong>Alt text:</strong> Nautical inventory screen with low-stock alerts and a transfer between locations.</p>
-        <p class="cap">Caption: Food and retail stock, with the warning before the empty shelf.</p>
+        <div class="label">Image slot</div>
+        <p><strong>Brief:</strong> Inventory home with food and retail stock, a low-stock alert, and a purchase order or transfer between locations.</p>
+        <p><strong>Alt text:</strong> Retail and food inventory in the NHY app with a low-stock alert and a transfer between locations.</p>
+        <p class="cap">Suggested caption: The alert should arrive before the guest asks.</p>
       </div>
     </div>
   </section>
@@ -139,25 +152,13 @@
   <section class="section">
     <div class="wrap">
       <h2>The photo that never got taken</h2>
-      <p>AI Marketing Studio sits on the owner dashboard as a direct path: generate product mockups and video ads. Inside it, AI Trial Lab makes product mockups, an AI-generated video ad can be cut for any item, and AI try-on lets a shop show the product on a person without a shoot day. The catalogue item becomes the campaign. A café special, a bar serve, a boutique piece — same studio, different product.</p>
-      <p>It covers the Tuesday when nobody had a free hand and the window still needed a picture.</p>
-    </div>
-  </section>
-
-  <section class="section sand">
-    <div class="wrap">
-      <h2>One afternoon scoreboard</h2>
-      <p>Run the business from the dashboard: today’s revenue, today’s orders, average order value. Billing, team accounts and store settings live on the same deck, so a new hire is a team account, not a shared password on a scrap of paper. Plans range from a free tier up to Enterprise. The owner console you open is the same NHY app whether you run a dining room, a coffee bar, a pub or a shop.</p>
-      <div class="cards">
-        <div class="card"><div class="num">3 seconds</div><p>Tap Tap Go — a live bill on the guest phone, not a download screen.</p></div>
-        <div class="card"><div class="num">One QR</div><p>Per table, counter or fitting room. Contactless ordering, no guest app.</p></div>
-        <div class="card"><div class="num">Four rooms</div><p>Restaurant, café, bar, retail. Same owner app, fields that match the floor.</p></div>
-      </div>
+      <p>Most venues have a dish or a product that deserves a campaign and a phone full of nothing usable. AI Marketing Studio covers that without a shoot day. AI Trial Lab makes product mockups. The studio can generate a video ad for any item. AI try-on lets a shopper see a product on themselves where that fits — useful on a retail counter, and a clean way for a café or bar to show a featured item.</p>
+      <p>It sits next to the owner tools, on the Professional side of the product, because a campaign only helps if it points at an item you can still sell. The retype, the missed wave, the empty shelf and the missing photo are the four stalls NHY is built to clear.</p>
       <div class="slot">
-        <p class="label">Image slot · dashboard</p>
-        <p><strong>Brief:</strong> Owner dashboard on the NHY app: today’s revenue, orders, average order value, and the AI Marketing Studio entry. Use the Professional demo store. Do not crop in personal balances from other accounts.</p>
-        <p><strong>Alt text:</strong> Nautical owner dashboard with today’s revenue, orders, average order value and AI Marketing Studio.</p>
-        <p class="cap">Caption: The afternoon scoreboard — revenue, orders, and the studio, on one screen.</p>
+        <div class="label">Image slot</div>
+        <p><strong>Brief:</strong> AI Marketing Studio on a featured item: a product mockup, a short video ad frame, and an AI try-on preview.</p>
+        <p><strong>Alt text:</strong> AI Marketing Studio in Nautical POS generating a product mockup and a video ad for a menu item.</p>
+        <p class="cap">Suggested caption: A campaign asset, without waiting on a photographer.</p>
       </div>
     </div>
   </section>
@@ -169,6 +170,6 @@
       <a class="btn" href="https://app.nautical.co.in/login">Try Nautical POS</a>
     </div>
   </section>
-  <footer class="meta">Nautical POS · nautical.co.in · app.nautical.co.in · Updated 1 October 2026, 3:15 PM IST</footer>
+  <footer>Nautical POS · nautical.co.in · app.nautical.co.in · Updated 2 October 2026</footer>
 </body>
 </html>
