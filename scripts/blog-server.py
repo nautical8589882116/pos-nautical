@@ -46,8 +46,51 @@ class BlogHandler(SimpleHTTPRequestHandler):
         return True
 
     def do_GET(self):
-        if self._route():
-            super().do_GET()
+        if not self._route():
+            return
+        if self.headers.get("Range") and self._send_range():
+            return
+        super().do_GET()
+
+    def _send_range(self):
+        """Serve a single 'bytes=a-b' range so videos play and seek (Safari requires this)."""
+        rng = self.headers.get("Range", "")
+        fs_path = self.translate_path(self.path)
+        if not rng.startswith("bytes=") or "," in rng or not os.path.isfile(fs_path):
+            return False
+        size = os.path.getsize(fs_path)
+        start_s, _, end_s = rng[6:].partition("-")
+        try:
+            if start_s:
+                start = int(start_s)
+                end = min(int(end_s), size - 1) if end_s else size - 1
+            else:  # suffix range: last N bytes
+                start, end = max(0, size - int(end_s)), size - 1
+        except ValueError:
+            return False
+        if start > end or start >= size:
+            self.send_response(HTTPStatus.REQUESTED_RANGE_NOT_SATISFIABLE)
+            self.send_header("Content-Range", f"bytes */{size}")
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return True
+        length = end - start + 1
+        self.send_response(HTTPStatus.PARTIAL_CONTENT)
+        self.send_header("Content-Type", self.guess_type(fs_path))
+        self.send_header("Accept-Ranges", "bytes")
+        self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
+        self.send_header("Content-Length", str(length))
+        self.end_headers()
+        with open(fs_path, "rb") as fh:
+            fh.seek(start)
+            remaining = length
+            while remaining > 0:
+                chunk = fh.read(min(65536, remaining))
+                if not chunk:
+                    break
+                self.wfile.write(chunk)
+                remaining -= len(chunk)
+        return True
 
     def do_HEAD(self):
         if self._route():
@@ -74,7 +117,7 @@ class BlogHandler(SimpleHTTPRequestHandler):
 
     def end_headers(self):
         path = urlsplit(self.path).path
-        if path.endswith((".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".woff2")):
+        if path.endswith((".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".woff2", ".mp4", ".webm")):
             self.send_header("Cache-Control", "public, max-age=86400")
         else:
             self.send_header("Cache-Control", "public, max-age=300")

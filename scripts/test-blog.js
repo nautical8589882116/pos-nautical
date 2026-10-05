@@ -20,7 +20,12 @@ function run(count) {
     const d = new Date(Date.UTC(2026, 0, i)).toISOString().slice(0, 10);
     posts.push({ slug, title: `Post ${i}`, date: d, excerpt: `Excerpt ${i}` });
     fs.writeFileSync(path.join(src, `${slug}.html`),
-      `<!-- note --><!DOCTYPE html><html><head><title>P${i}</title><link rel="canonical" href="https://nautical.co.in/blog/${slug}"></head><body><a href="/blog">blog</a><a href="/blog/post-01.html">first</a><img src="/img/x.png"></body></html>`);
+      `<!-- note --><!DOCTYPE html><html><head><title>P${i}</title><link rel="canonical" href="https://nautical.co.in/blog/${slug}"></head><body><a href="/blog">blog</a><a href="/blog/post-01.html">first</a><img src="/img/x.png"><img src="/media/${slug}/shot.png"></body></html>`);
+  }
+  for (let i = 1; i <= count; i++) {
+    const dir = path.join(src, 'media', `post-${String(i).padStart(2, '0')}`);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'shot.png'), 'png');
   }
   fs.writeFileSync(path.join(src, 'posts.json'), JSON.stringify(posts.reverse()));
   execFileSync(process.execPath, [BUILD, '--posts', path.join(src, 'posts.json'), '--src', src, '--out', out], { stdio: 'pipe' });
@@ -65,6 +70,8 @@ assert.ok(post.includes('<link rel="canonical" href="https://blog.nautical.co.in
 assert.ok(post.includes('href="/"') && post.includes('href="/post-01/"'), 'blog links rewritten');
 assert.ok(post.includes('src="https://www.nautical.co.in/img/x.png"'), 'other root links go to main site');
 assert.ok(post.includes('← Nautical Blog'), 'nav injected');
+assert.ok(post.includes('src="/media/post-03/shot.png"'), 'blog media links stay local');
+assert.ok(fs.existsSync(path.join(out, 'media/post-01/shot.png')), 'media copied');
 
 // sitemap: 3 pages + 11 posts
 const sm = read(path.join(out, 'sitemap.xml'));
@@ -72,6 +79,10 @@ assert.strictEqual((sm.match(/<url>/g) || []).length, 14);
 const redirects = JSON.parse(read(path.join(out, 'redirects.json')));
 assert.strictEqual(redirects['/blog/post-03.html'], '/post-03/');
 assert.ok(fs.existsSync(path.join(out, 'server.py')));
+
+// a post that points at a missing media file must fail the build
+fs.rmSync(path.join(tmp, 'src5', 'media', 'post-02'), { recursive: true, force: true });
+assert.throws(() => execFileSync(process.execPath, [BUILD, '--posts', path.join(tmp, 'src5', 'posts.json'), '--src', path.join(tmp, 'src5'), '--out', path.join(tmp, 'bad')], { stdio: 'pipe' }), 'missing media fails the build');
 
 fs.rmSync(tmp, { recursive: true, force: true });
 console.log('test-blog: all checks passed');

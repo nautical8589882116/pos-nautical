@@ -182,6 +182,7 @@ function rewriteLinks(html, slugs) {
   return html.replace(/(\s(?:href|src)=["'])(\/[^"']*)(["'])/g, (m, a, url, b) => {
     if (url.startsWith('//')) return m;
     const clean = url.split(/[?#]/)[0];
+    if (clean.startsWith('/media/')) return m; // images/videos shipped with the blog (blog/media/**)
     const hit = clean.match(/^\/blog\/?([a-z0-9-]*?)(?:\.html)?\/?$/);
     if (hit) {
       if (!hit[1]) return `${a}/${b}`;
@@ -200,6 +201,9 @@ for (const p of posts) {
   const dt = html.search(/<!DOCTYPE/i);
   if (dt > 0) html = html.slice(dt);
   html = rewriteLinks(html, seen);
+  for (const ref of new Set([...html.matchAll(/["'(]\/media\/([^"'()?#\s]+)/g)].map((x) => x[1]))) {
+    if (!fs.existsSync(path.join(SRC_DIR, 'media', ref))) fail(`${p.slug}: references /media/${ref} but blog/media/${ref} is missing`);
+  }
   const canon = `<link rel="canonical" href="${p.url}" />`;
   html = /<link[^>]+rel=["']canonical["'][^>]*>/i.test(html)
     ? html.replace(/<link[^>]+rel=["']canonical["'][^>]*>/i, canon)
@@ -211,6 +215,26 @@ for (const p of posts) {
   write(`${p.slug}/index.html`, html);
   for (const legacy of [`/${p.slug}`, `/${p.slug}.html`, `/blog/${p.slug}`, `/blog/${p.slug}/`, `/blog/${p.slug}.html`]) redirects[legacy] = `/${p.slug}/`;
   for (const old of p.aliases || []) redirects[old] = `/${p.slug}/`;
+}
+
+// ---------- media (images, gifs, short videos) ----------
+// blog/media/<slug>/<file> is served at /media/<slug>/<file>
+const MEDIA_SRC = path.join(SRC_DIR, 'media');
+const MAX_MEDIA_BYTES = 15 * 1024 * 1024;
+let mediaCount = 0;
+if (fs.existsSync(MEDIA_SRC)) {
+  (function copyDir(from, to) {
+    fs.mkdirSync(to, { recursive: true });
+    for (const e of fs.readdirSync(from, { withFileTypes: true })) {
+      const s = path.join(from, e.name);
+      const d = path.join(to, e.name);
+      if (e.isDirectory()) { copyDir(s, d); continue; }
+      const size = fs.statSync(s).size;
+      if (size > MAX_MEDIA_BYTES) fail(`${path.relative(ROOT, s)} is ${(size / 1048576).toFixed(1)} MB; keep media under 15 MB (host long videos on YouTube)`);
+      fs.copyFileSync(s, d);
+      mediaCount++;
+    }
+  })(MEDIA_SRC, path.join(OUT, 'media'));
 }
 
 // ---------- sitemap / robots / 404 ----------
@@ -234,5 +258,5 @@ write('404.html', shell({
 write('redirects.json', JSON.stringify(redirects, null, 2) + '\n');
 fs.copyFileSync(path.join(__dirname, 'blog-server.py'), path.join(OUT, 'server.py'));
 
-console.log(`build-blog: ${posts.length} posts, ${pageCount} page(s), ${PER_PAGE} per page -> ${path.relative(ROOT, OUT) || '.'}`);
+console.log(`build-blog: ${posts.length} posts, ${pageCount} page(s), ${PER_PAGE} per page, ${mediaCount} media file(s) -> ${path.relative(ROOT, OUT) || '.'}`);
 posts.forEach((p, i) => console.log(`  p${Math.floor(i / PER_PAGE) + 1}  ${day(p)}  /${p.slug}/`));

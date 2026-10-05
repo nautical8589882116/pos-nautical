@@ -22,7 +22,13 @@ The blog is a static site built from this repo and served by the Azure App Servi
 
    Optional: `"draft": true` hides a post, `"updated": "YYYY-MM-DD"` sets the sitemap date,
    `"aliases": ["/old/path"]` 301-redirects old URLs to the post.
-3. Push to `main`. GitHub Actions (`Deploy blog.nautical.co.in`) tests, builds and deploys.
+3. Optional media: put images, GIFs and short videos in `blog/media/<slug>/` and reference them
+   in the post as `/media/<slug>/<file>`. Each file must be under 15 MB (videos are served with
+   range requests, so they play and seek on iPhone too).
+4. Push to `main`. GitHub Actions (`Deploy blog.nautical.co.in`) tests, builds and deploys.
+
+Daily posts: see `docs/GROK_DAILY_BLOG_PROMPT.md` (Grok Task prompt) and keep
+`product/SHIPPED.md` updated when a feature goes live.
 
 ## What gets built (`node scripts/build-blog.js`)
 
