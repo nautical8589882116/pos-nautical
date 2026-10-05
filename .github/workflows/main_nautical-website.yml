@@ -1,5 +1,11 @@
 name: Deploy Nautical website to Azure Web App
 
+# Deploys on every push to main that touches the site.
+# REQUIRED secrets (repo Settings → Secrets and variables → Actions):
+#   AZURE_WEBAPP_PUBLISH_PROFILE — download from Azure Portal →
+#     App Service "nautical-website" → Get publish profile
+# Optional alternative: AZURE_CREDENTIALS (service principal JSON) + azure/login
+
 on:
   push:
     branches:
@@ -7,6 +13,8 @@ on:
     paths:
       - 'blog/**'
       - 'index.html'
+      - 'sitemap.xml'
+      - 'robots.txt'
       - 'staticwebapp.config.json'
       - '.github/workflows/main_nautical-website.yml'
   workflow_dispatch:
@@ -26,4 +34,5 @@ jobs:
         with:
           app-name: 'nautical-website'
           slot-name: 'Production'
-          package: .
+          package: '.'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
