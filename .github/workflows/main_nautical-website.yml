@@ -1,23 +1,26 @@
-name: Deploy Nautical website to Azure Web App
+name: Deploy blog.nautical.co.in
 
-# Deploys on every push to main that touches the site.
-# REQUIRED secrets (repo Settings → Secrets and variables → Actions):
-#   AZURE_WEBAPP_PUBLISH_PROFILE — download from Azure Portal →
-#     App Service "nautical-website" → Get publish profile
-# Optional alternative: AZURE_CREDENTIALS (service principal JSON) + azure/login
+# Every push to main that touches the blog (from anywhere: local git, GitHub web editor,
+# an agent, a merged PR) rebuilds the paginated blog and deploys it to the
+# Azure App Service "nautical-website", which serves https://blog.nautical.co.in.
+#
+# To publish a post: add blog/<slug>.html and one entry in blog/posts.json, push to main.
+#
+# Secret used (repo Settings -> Secrets and variables -> Actions):
+#   AZURE_WEBAPP_PUBLISH_PROFILE - publish profile of App Service "nautical-website"
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - 'blog/**'
-      - 'index.html'
-      - 'sitemap.xml'
-      - 'robots.txt'
-      - 'staticwebapp.config.json'
+      - 'scripts/**'
       - '.github/workflows/main_nautical-website.yml'
   workflow_dispatch:
+
+concurrency:
+  group: deploy-blog
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -29,10 +32,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Test the blog generator
+        run: node scripts/test-blog.js
+
+      - name: Build the blog
+        run: node scripts/build-blog.js --out dist
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'nautical-website'
           slot-name: 'Production'
-          package: '.'
+          package: 'dist'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+
+      - name: Smoke test
+        run: |
+          sleep 20
+          for u in / /sitemap.xml $(node -e "require('./blog/posts.json').filter(p=>!p.draft).forEach(p=>console.log('/'+p.slug+'/'))"); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "https://nautical-website.azurewebsites.net$u")
+            echo "$u -> $code"
+            [ "$code" = "200" ] || exit 1
+          done

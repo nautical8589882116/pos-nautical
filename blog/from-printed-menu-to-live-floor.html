@@ -1,0 +1,318 @@
+<!--
+Suggested title: Stop Retyping the Menu. The Floor Tech That Runs Restaurants, Cafés, Bars, and Shops
+Meta description: How restaurant POS software, an AI menu builder, a QR code ordering system, and a retail inventory management app work together in Nautical POS — and how operators use them on a live shift.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stop Retyping the Menu. The Floor Tech That Runs Restaurants, Cafés, Bars, and Shops</title>
+  <meta name="description" content="How restaurant POS software, an AI menu builder, a QR code ordering system, and a retail inventory management app work together in Nautical POS — and how operators use them on a live shift.">
+  <link rel="canonical" href="https://nautical.co.in/blog/from-printed-menu-to-live-floor">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0B2545;
+      --deep-navy: #061A33;
+      --teal: #17C3CE;
+      --soft-teal: #E6FAFB;
+      --ink: #1F2933;
+      --slate: #5A6B7B;
+      --sand: #F7F9FB;
+      --amber: #F6A609;
+      --paper: #FFFFFF;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { overflow-x: hidden; max-width: 100%; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .hero {
+      width: 100%;
+      background: var(--navy);
+      color: var(--paper);
+      padding: 72px 24px 64px;
+    }
+    .hero-inner, .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .anchor {
+      font-size: 28px;
+      line-height: 1;
+      margin-bottom: 18px;
+      display: block;
+    }
+    h1, h2 {
+      font-family: 'Sora', 'Segoe UI', system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+    h1 {
+      font-size: clamp(32px, 6vw, 46px);
+      color: var(--paper);
+      margin-bottom: 16px;
+    }
+    .deck {
+      color: var(--teal);
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .band { padding: 56px 24px; }
+    .band.paper { background: var(--paper); }
+    .band.sand { background: var(--sand); }
+    h2 {
+      color: var(--navy);
+      font-size: clamp(24px, 4vw, 30px);
+      margin-bottom: 16px;
+    }
+    p { margin-bottom: 16px; }
+    p:last-child { margin-bottom: 0; }
+    .quote-panel {
+      background: var(--soft-teal);
+      border-left: 4px solid var(--teal);
+      padding: 28px 24px;
+      margin: 8px 0;
+    }
+    .quote-panel blockquote {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(28px, 4vw, 32px);
+      line-height: 1.3;
+      color: var(--navy);
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .card {
+      border: 1.5px solid var(--teal);
+      background: var(--paper);
+      padding: 22px 18px;
+      border-radius: 10px;
+    }
+    .card .stat {
+      font-family: 'Sora', 'Segoe UI', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .card .stat.amber { color: var(--amber); }
+    .card p {
+      color: var(--slate);
+      font-size: 15px;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .placeholder {
+      border: 2px dashed var(--teal);
+      background: var(--soft-teal);
+      padding: 22px 20px;
+      border-radius: 10px;
+      margin: 24px 0 8px;
+    }
+    .placeholder strong {
+      display: block;
+      color: var(--navy);
+      font-family: 'Sora', 'Segoe UI', system-ui, sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .placeholder p { font-size: 15px; margin-bottom: 8px; color: var(--ink); }
+    .placeholder .cap { color: var(--slate); font-size: 13px; margin: 0; }
+    .op-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .op {
+      background: var(--paper);
+      border: 1px solid #d7e3e8;
+      border-radius: 10px;
+      padding: 18px 16px;
+    }
+    .op h3 {
+      font-family: 'Sora', 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px;
+      color: var(--navy);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .op p { font-size: 15px; margin: 0; color: var(--ink); }
+    .cta {
+      background: var(--deep-navy);
+      padding: 64px 24px;
+      text-align: center;
+    }
+    .cta h2 { color: var(--paper); margin-bottom: 12px; }
+    .cta p {
+      color: #c5d0db;
+      max-width: 560px;
+      margin: 0 auto 28px;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--deep-navy);
+      font-family: 'Sora', 'Segoe UI', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .btn:hover { text-decoration: none; filter: brightness(1.05); }
+    @media (max-width: 720px) {
+      .cards, .op-grid { grid-template-columns: 1fr; }
+      .hero { padding: 56px 18px 48px; }
+      .band, .cta { padding: 44px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <span class="anchor" aria-hidden="true">⚓</span>
+      <h1>Stop retyping the menu. The floor is already moving.</h1>
+      <p class="deck">How restaurant POS software, contactless ordering, and a retail inventory management app finally share one shift.</p>
+    </div>
+  </header>
+  <section class="band paper">
+    <div class="wrap">
+      <p>A printed menu sits on the counter. Lunch prices changed last Tuesday. Someone still has to type every item again — names, prices, veg flags, the dinner-only specials — before the QR codes on the tables can show anything true. Across the room a table has been waiting ten minutes to catch a server’s eye. In the storeroom, the last pack of a hero SKU is already gone. The marketing photo for this week’s mocktail was never taken.</p>
+      <p>That is one afternoon, not four different businesses. Restaurant owners, café owners, bar managers, and retail shop owners all lose the same minutes: catalog work that should have been a photo, guests who should have ordered themselves, stock that should have spoken up, and a campaign that never left the phone roll. Nautical POS is restaurant POS software built as an operating system for all four floors. Tap Tap Go. ⚓ Order in 3 Seconds.</p>
+    </div>
+  </section>
+  <section class="band sand">
+    <div class="wrap">
+      <h2>Photograph the menu. Stop typing it.</h2>
+      <p>The first job of any AI menu builder is not “look clever.” It is to get tonight’s list onto the floor without a second data-entry shift. In Nautical you photograph a printed menu. The import from photo (AI) reads the page and builds categories and items — names, structure, the skeleton you would otherwise retype.</p>
+      <p>From there you finish what a camera cannot guess. Categories get colour and imagery. Items get price, calories, veg / spicy / featured flags, and availability by Breakfast, Lunch, or Dinner. Retail shops skip the photograph and bring a catalogue in with a Shopify CSV import. Same builder. Different door.</p>
+      <div class="placeholder">
+        <strong>Image slot 1</strong>
+        <p><b>Brief:</b> Overhead shot of a printed café or restaurant menu next to a phone showing Nautical’s AI Menu Builder after a photo import — categories already named, item rows with price and veg/spicy flags visible. Include one retail tag or CSV hint so the frame is not restaurant-only.</p>
+        <p><b>Alt text:</b> Printed menu beside a phone displaying Nautical AI Menu Builder after a photo import, with categories, prices, and veg flags filled in.</p>
+        <p class="cap">Caption: Import from photo builds the list. You add colour, calories, meal-period availability — or drop in a Shopify CSV for retail.</p>
+      </div>
+    </div>
+  </section>
+  <section class="band paper">
+    <div class="wrap">
+      <h2>A QR code ordering system that does not ask for an app</h2>
+      <p>Contactless ordering only works if the guest never has to hunt for software. Nautical prints a per-table QR code. The guest opens the phone camera, lands on a web menu, and orders. No download.</p>
+      <p>They pick a portion size — Quarter, Half, or Full — apply a coupon, and read a live summary before they submit: subtotal, service charge, tax, and discount. The bill is not a surprise at the end of the course. For a bar, that is a highball and a shareable plate without waving. For a café, it is a table that orders the second round while staff plates the first. For a restaurant, it is a full table that does not stall the pass. Retail can use the same contactless path when a shop floor needs a scan-and-pay lane that is not a second till.</p>
+    </div>
+  </section>
+  <section class="band sand">
+    <div class="wrap">
+      <div class="quote-panel">
+        <blockquote>The guest should see the tax before they tap submit. The kitchen should see the ticket before anyone walks it across the room.</blockquote>
+      </div>
+    </div>
+  </section>
+  <section class="band paper">
+    <div class="wrap">
+      <h2>The ticket has a path: Pending to Completed</h2>
+      <p>An order that disappears into a notepad is how a bar loses a garnish and a shop loses a hold. Nautical’s pipeline is short on purpose: Pending → Preparing → Ready → Completed. Receipts go out from the same trail. Filters cut the list by date, table, payment method, and status so a manager is not scrolling the whole Saturday to find one UPI ticket from table 9.</p>
+      <p>That pipeline is the same feature on four floors. The restaurant uses table and course timing. The café uses it to keep the espresso window honest. The bar uses it so a ready drink does not sit while the ticket is still “somewhere.” The shop uses status and payment method to close a floor sale without a second notebook.</p>
+      <div class="placeholder">
+        <strong>Image slot 2</strong>
+        <p><b>Brief:</b> Split operations screen: left side a guest phone on a table QR web menu with Quarter/Half/Full and a live totals strip (subtotal, service charge, tax, discount); right side staff view of the order pipeline chips Pending, Preparing, Ready, Completed, with filters for table and payment method.</p>
+        <p><b>Alt text:</b> Guest QR web menu with portion sizes and live totals next to a Nautical order pipeline showing Pending, Preparing, Ready, and Completed.</p>
+        <p class="cap">Caption: Scan, choose a portion, see the tax, submit. The ticket moves without a second conversation.</p>
+      </div>
+    </div>
+  </section>
+  <section class="band sand">
+    <div class="wrap">
+      <h2>Stock that speaks before the mid-shift surprise</h2>
+      <p>Discovering you are out mid-shift is not an inventory problem. It is a guest problem that arrived too late. Nautical inventory tracks Food stock and Retail stock in the same product. Low-stock alerts fire before the last unit is promised. Purchase orders cover the refill. Transfers move units between locations when one store is dry and the other is heavy.</p>
+      <p>A restaurant watches protein and garnish. A café watches beans and pastry. A bar watches bottles and citrus. A retail shop watches size runs and shelf packs. The labels change. The alert, the purchase order, and the transfer do not.</p>
+    </div>
+  </section>
+  <section class="band paper">
+    <div class="wrap">
+      <h2>The photo that never got taken still has to ship</h2>
+      <p>AI Marketing Studio is for the week you do not have a photographer. AI Trial Lab builds product mockups so a new pastry, a new pour, or a new shelf item can exist as an image before the shoot happens. AI-generated video ads can be cut for any item. AI try-on is for products guests need to see on a body or in a room — apparel, accessories, home — not only for a plated dish.</p>
+      <p>Marketing is not a fifth product. It sits on the same catalogue you already priced and flagged. If the item is live for Lunch, the ad can talk about Lunch.</p>
+    </div>
+  </section>
+  <section class="band sand">
+    <div class="wrap">
+      <h2>One feature, four floors</h2>
+      <p>Same tools. Different version of the problem.</p>
+      <div class="op-grid">
+        <div class="op">
+          <h3>Restaurant owner</h3>
+          <p>Photo-import the printed card, set Lunch versus Dinner availability, put a QR on every table, and watch tickets move from Pending to Ready without a runner explaining the special twice.</p>
+        </div>
+        <div class="op">
+          <h3>Café owner</h3>
+          <p>Flag veg and featured breakfast items, let a two-top order Quarter or Full from the phone, and get a low-stock alert on the pastry that always dies at 11:40.</p>
+        </div>
+        <div class="op">
+          <h3>Bar manager</h3>
+          <p>Keep spicy and featured pours honest on the web menu, apply a coupon at the table, and filter tonight’s tickets by payment method when the close gets noisy.</p>
+        </div>
+        <div class="op">
+          <h3>Retail shop owner</h3>
+          <p>Bring the catalogue in with a Shopify CSV, transfer units between locations, generate a mockup or try-on when the campaign photo never got taken, and still see today’s revenue on one dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="band paper">
+    <div class="wrap">
+      <h2>What you open when you run the business</h2>
+      <p>The dashboard is today’s revenue, order count, and average order value — not a lecture. Billing, team accounts, and store settings live in the same place. Plans range from a free tier up to Enterprise. You do not need a developer to explain “pipeline” or “CSV.” A pipeline is the ticket’s path. A CSV is the spreadsheet file most retail catalogues already export.</p>
+      <div class="cards" style="margin-top: 28px;">
+        <div class="card">
+          <div class="stat amber">3 seconds</div>
+          <p>Brand line for the guest path: scan, choose, submit — no app download.</p>
+        </div>
+        <div class="card">
+          <div class="stat">4 statuses</div>
+          <p>Pending, Preparing, Ready, Completed — plus receipt send and live filters.</p>
+        </div>
+        <div class="card">
+          <div class="stat">2 stock books</div>
+          <p>Food and Retail inventory, with alerts, purchase orders, and transfers.</p>
+        </div>
+      </div>
+      <div class="placeholder">
+        <strong>Image slot 3</strong>
+        <p><b>Brief:</b> Owner dashboard on a laptop at a café-bar counter at golden hour: today’s revenue, orders, and average order value on screen; a low-stock alert chip visible; a small retail shelf or bottle well in the background so the frame reads hospitality and shop.</p>
+        <p><b>Alt text:</b> Nautical POS dashboard showing today’s revenue, orders, and average order value beside a low-stock alert in a café-bar with retail shelving.</p>
+        <p class="cap">Caption: Run the shift from one screen — money, tickets, team, and the stock that would have run out quietly.</p>
+      </div>
+    </div>
+  </section>
+  <section class="cta">
+    <div class="wrap">
+      <h2>Try Nautical POS on your floor</h2>
+      <p>Bring a printed menu or a Shopify CSV. Put a QR on a table. Watch the first ticket move. Plans start on a free tier and scale to Enterprise.</p>
+      <a class="btn" href="https://app.nautical.co.in">Open Nautical POS</a>
+    </div>
+  </section>
+</body>
+</html>

@@ -5,11 +5,17 @@
     "date": "2026-10-05",
     "dateLabel": "5 October 2026",
     "datetime": "2026-10-05T15:15:00+05:30",
-    "tag": "NHY \u00b7 React Native",
-    "excerpt": "Pain-first guide to the NHY React Native app: AI menu builder, QR ordering, the order pipeline, inventory and AI Marketing Studio \u2014 for restaurants, caf\u00e9s, bars and shops.",
-    "differs": "Designed walkthrough of the live Professional owner console, with screens from menu, orders and AI Marketing Studio.",
-    "path": "/blog/nhy-react-native-app.html",
-    "canonical": "https://www.nautical.co.in/blog/nhy-react-native-app.html"
+    "tag": "NHY · React Native",
+    "excerpt": "Pain-first guide to the NHY React Native app: AI menu builder, QR ordering, the order pipeline, inventory and AI Marketing Studio — for restaurants, cafés, bars and shops."
+  },
+  {
+    "slug": "the-tech-reshaping-your-floor",
+    "title": "The Tech Reshaping Your Floor — And How Nautical POS Handles It",
+    "date": "2026-09-16",
+    "dateLabel": "16 September 2026",
+    "datetime": "2026-09-16T10:00:00+05:30",
+    "tag": "Operator guide",
+    "excerpt": "A practical guide for restaurant, café, bar and retail operators on AI menus, QR code ordering, inventory and marketing — and how Nautical POS puts each one to work."
   },
   {
     "slug": "nhy-qr-ordering-restaurant-os",
@@ -18,9 +24,15 @@
     "dateLabel": "27 August 2026",
     "datetime": "2026-08-27T05:30:00+05:30",
     "tag": "QR ordering",
-    "excerpt": "Demo-style story of a table scan becoming a live signal across menu, kitchen, payments, and demand.",
-    "differs": "Narrative of one QR order end-to-end.",
-    "path": "/blog/nhy-qr-ordering-restaurant-os.html",
-    "canonical": "https://www.nautical.co.in/blog/nhy-qr-ordering-restaurant-os.html"
+    "excerpt": "Demo-style story of a table scan becoming a live signal across menu, kitchen, payments and demand."
+  },
+  {
+    "slug": "from-printed-menu-to-live-floor",
+    "title": "Stop Retyping the Menu. The Floor Tech That Runs Restaurants, Cafés, Bars and Shops",
+    "date": "2026-08-27",
+    "dateLabel": "27 August 2026",
+    "datetime": "2026-08-27T05:00:00+05:30",
+    "tag": "Floor tech",
+    "excerpt": "How restaurant POS software, an AI menu builder, a QR code ordering system and a retail inventory management app work together in Nautical POS — and how operators use them on a live shift."
   }
 ]
