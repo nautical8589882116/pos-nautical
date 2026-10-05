@@ -43,5 +43,8 @@ Run `node scripts/test-blog.js` to check pagination with 1, 5, 6 and 11 posts.
 
 - App Service `nautical-website` (Linux, Python 3.11), startup command `python server.py`.
   `server.py` is `scripts/blog-server.py`: a standard-library static server with redirects and a 404 page.
-- DNS: Cloudflare `blog` CNAME -> `nautical-website.azurewebsites.net` (proxied).
+- DNS: Cloudflare `blog` CNAME -> `nautical-website.azurewebsites.net` (DNS only) and TXT `asuid.blog`
+  (Azure domain verification). Keep the CNAME **DNS only**: the free App Service managed certificate
+  cannot auto-renew while Cloudflare proxies the hostname.
+- HTTPS: App Service managed certificate for `blog.nautical.co.in` (SNI binding, HTTPS only).
 - `www.nautical.co.in/blog` (Static Web App `nautical-website`) still serves its own copies of some posts.
