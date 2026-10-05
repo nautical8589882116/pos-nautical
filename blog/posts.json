@@ -2,12 +2,12 @@
   {
     "slug": "nhy-react-native-app",
     "title": "How the NHY App Handles the Menu, the Waiting Table and the Empty Shelf",
-    "date": "2026-10-04",
-    "dateLabel": "4 October 2026",
-    "datetime": "2026-10-04T15:00:00+05:30",
-    "tag": "NHY · React Native",
-    "excerpt": "Pain-first guide to the owner console: AI menu builder, QR ordering, order pipeline, inventory, and AI Marketing Studio — for restaurants, cafés, bars, and shops.",
-    "differs": "Full NHY product walkthrough from the live Professional demo, not a single-feature story.",
+    "date": "2026-10-05",
+    "dateLabel": "5 October 2026",
+    "datetime": "2026-10-05T15:15:00+05:30",
+    "tag": "NHY \u00b7 React Native",
+    "excerpt": "Pain-first guide to the NHY React Native app: AI menu builder, QR ordering, the order pipeline, inventory and AI Marketing Studio \u2014 for restaurants, caf\u00e9s, bars and shops.",
+    "differs": "Designed walkthrough of the live Professional owner console, with screens from menu, orders and AI Marketing Studio.",
     "path": "/blog/nhy-react-native-app.html",
     "canonical": "https://www.nautical.co.in/blog/nhy-react-native-app.html"
   },
