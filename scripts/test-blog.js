@@ -80,9 +80,52 @@ const redirects = JSON.parse(read(path.join(out, 'redirects.json')));
 assert.strictEqual(redirects['/blog/post-03.html'], '/post-03/');
 assert.ok(fs.existsSync(path.join(out, 'server.py')));
 
+// posts.json: the list nautical.co.in/blog shows — newest first, public fields only
+const feed = JSON.parse(read(path.join(out, 'posts.json')));
+assert.strictEqual(feed.length, 11, 'feed has every post');
+assert.strictEqual(feed[0].slug, 'post-11', 'feed newest first');
+assert.strictEqual(feed[0].url, 'https://blog.nautical.co.in/post-11/');
+assert.strictEqual(feed[0].title, 'Post 11');
+assert.strictEqual(feed[0].excerpt, 'Excerpt 11');
+for (const entry of feed) {
+  for (const key of Object.keys(entry)) {
+    assert.ok(['slug', 'title', 'date', 'dateLabel', 'tag', 'excerpt', 'url'].includes(key), `feed exposes only public fields (found ${key})`);
+  }
+}
+
 // a post that points at a missing media file must fail the build
 fs.rmSync(path.join(tmp, 'src5', 'media', 'post-02'), { recursive: true, force: true });
 assert.throws(() => execFileSync(process.execPath, [BUILD, '--posts', path.join(tmp, 'src5', 'posts.json'), '--src', path.join(tmp, 'src5'), '--out', path.join(tmp, 'bad')], { stdio: 'pipe' }), 'missing media fails the build');
 
-fs.rmSync(tmp, { recursive: true, force: true });
-console.log('test-blog: all checks passed');
+// server: posts.json is readable from nautical.co.in (CORS) and from nowhere else
+(async () => {
+  const { spawn } = require('child_process');
+  const http = require('http');
+  const port = 18000 + Math.floor(Math.random() * 1000);
+  const py = process.platform === 'win32' ? 'python' : 'python3';
+  const server = spawn(py, [path.join(out, 'server.py')], { env: { ...process.env, PORT: String(port) }, stdio: 'ignore' });
+  const get = (p, origin) => new Promise((resolve, reject) => {
+    const req = http.get({ host: '127.0.0.1', port, path: p, headers: origin ? { Origin: origin } : {} }, (res) => {
+      res.resume();
+      res.on('end', () => resolve(res));
+    });
+    req.on('error', reject);
+  });
+  try {
+    let res;
+    for (let i = 0; i < 50; i++) {
+      try { res = await get('/posts.json', 'https://www.nautical.co.in'); break; } catch { await new Promise((r) => setTimeout(r, 100)); }
+    }
+    assert.ok(res, 'blog server started');
+    assert.strictEqual(res.statusCode, 200);
+    assert.strictEqual(res.headers['access-control-allow-origin'], 'https://www.nautical.co.in', 'www may read posts.json');
+    assert.ok(/origin/i.test(res.headers.vary || ''), 'Vary: Origin');
+    assert.strictEqual((await get('/posts.json', 'https://nautical.co.in')).headers['access-control-allow-origin'], 'https://nautical.co.in');
+    assert.strictEqual((await get('/posts.json', 'https://evil.example')).headers['access-control-allow-origin'], undefined, 'other sites get no CORS');
+    assert.strictEqual((await get('/post-03/', 'https://www.nautical.co.in')).headers['access-control-allow-origin'], undefined, 'only posts.json is shared');
+  } finally {
+    server.kill();
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+  console.log('test-blog: all checks passed');
+})().catch((err) => { console.error(err); process.exit(1); });

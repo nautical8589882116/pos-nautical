@@ -12,6 +12,9 @@ from urllib.parse import urlsplit
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
+# Sites allowed to read /posts.json from the browser (the main website's blog section).
+SHARE_WITH = {"https://www.nautical.co.in", "https://nautical.co.in"}
+
 try:
     with open(os.path.join(ROOT, "redirects.json"), encoding="utf-8") as fh:
         REDIRECTS = json.load(fh)
@@ -117,6 +120,12 @@ class BlogHandler(SimpleHTTPRequestHandler):
 
     def end_headers(self):
         path = urlsplit(self.path).path
+        if path == "/posts.json":
+            # The main site (nautical.co.in/blog) lists the latest posts from here; only it may read them.
+            origin = self.headers.get("Origin")
+            if origin in SHARE_WITH:
+                self.send_header("Access-Control-Allow-Origin", origin)
+            self.send_header("Vary", "Origin")
         if path.endswith((".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".woff2", ".mp4", ".webm")):
             self.send_header("Cache-Control", "public, max-age=86400")
         else:

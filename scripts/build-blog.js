@@ -237,6 +237,11 @@ if (fs.existsSync(MEDIA_SRC)) {
   })(MEDIA_SRC, path.join(OUT, 'media'));
 }
 
+// ---------- posts.json: the latest-posts list nautical.co.in/blog reads (public fields only) ----------
+write('posts.json', JSON.stringify(posts.map((p) => ({
+  slug: p.slug, title: p.title, date: p.date, dateLabel: p.dateLabel, tag: p.tag, excerpt: p.excerpt, url: p.url,
+}))) + '\n');
+
 // ---------- sitemap / robots / 404 ----------
 const today = new Date().toISOString().slice(0, 10);
 const day = (p) => String(p.updated || p.datetime || p.date).slice(0, 10);
